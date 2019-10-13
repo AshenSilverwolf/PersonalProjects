@@ -4,7 +4,7 @@ public class Stack {
     private ArrayList<Character> stack = new ArrayList<>();
     private int top;
 
-    public void Stack() {
+    public Stack() {
         this.top = -1;
     }
 
@@ -15,11 +15,19 @@ public class Stack {
 
     public char pop() {
         char popper = stack.get(top);
-        stack.remove(top--)
+        stack.remove(top--);
         return popper;
     }
 
     public char peek() {
         return stack.get(top);
+    }
+
+    public boolean stackIsEmpty() {
+        if (stack.isEmpty()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 }

@@ -203,5 +203,19 @@ class SpellTest {
             }
         }
         assertEquals(test.getComponents(), testArrayList);
+        if (scnr.next().compareTo("Ritual") == 0) {
+            assertEquals(true, test.isRitual());
+            scnr.next();
+        } else {
+            assertEquals(false, test.isRitual());
+        }
+        String durationLine = scnr.nextLine();
+        if (durationLine.charAt(1) == 'C') {
+            assertEquals(true, test.isConcentration());
+            durationLine = durationLine.substring(15);
+        }
+        durationLine = durationLine.substring(1);
+        assertEquals(test.getDuration(), durationLine);
+        assertEquals(test.getDescription(), scnr.nextLine());
     }
 }

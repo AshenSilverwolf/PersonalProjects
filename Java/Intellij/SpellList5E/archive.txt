@@ -1,0 +1,9 @@
+defaultName
+defaultSchool
+Level: 0
+Casting Time: 0
+Range: 0
+V, S, M (a white feather)
+Ritual
+Duration: Concentration, defaultDuration
+defaultDescription

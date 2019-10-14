@@ -1,8 +1,12 @@
 import org.junit.jupiter.api.Test;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.Arrays;
-
 import java.util.ArrayList;
+import java.io.FileReader;
+import java.io.FileWriter;
+import java.util.Scanner;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -47,13 +51,13 @@ class SpellTest {
     @Test
     void isConcentration() {
         Spell test = new Spell();
-        assertEquals(false, test.isConcentration());
+        assertEquals(true, test.isConcentration());
     }
 
     @Test
     void isRitual() {
         Spell test = new Spell();
-        assertEquals(false, test.isRitual());
+        assertEquals(true, test.isRitual());
     }
 
     @Test
@@ -113,15 +117,15 @@ class SpellTest {
     @Test
     void setConcentration() {
         Spell test = new Spell();
-        test.setConcentration(true);
-        assertEquals(true, test.isConcentration());
+        test.setConcentration(false);
+        assertEquals(false, test.isConcentration());
     }
 
     @Test
     void setRitual() {
         Spell test = new Spell();
-        test.setRitual(true);
-        assertEquals(true, test.isRitual());
+        test.setRitual(false);
+        assertEquals(false, test.isRitual());
     }
 
     @Test
@@ -136,5 +140,68 @@ class SpellTest {
         Spell test = new Spell();
         test.setDescription("You touch one object that is no larger than 10 feet in any dimension. Until the spell ends, the object sheds bright light in a 20-foot radius and dim light for an additional 20 feet. The ligght can be colored as you like. Completely covering the object with something opaque blocks the light. The spell ends if you cast it again or dismiss it as an action.\n\nIf you target an object held or worn by a hostile creature, that creature must succeed on a Dexterity saving throw to avoid the spell.");
         assertEquals("You touch one object that is no larger than 10 feet in any dimension. Until the spell ends, the object sheds bright light in a 20-foot radius and dim light for an additional 20 feet. The ligght can be colored as you like. Completely covering the object with something opaque blocks the light. The spell ends if you cast it again or dismiss it as an action.\n\nIf you target an object held or worn by a hostile creature, that creature must succeed on a Dexterity saving throw to avoid the spell.", test.getDescription());
+    }
+
+    @Test
+    void testArchiveSpell() throws IOException {
+        File archive = new File("archive.txt");
+        FileWriter out = new FileWriter(archive);
+        Scanner scnr = new Scanner(archive);
+        Spell test = new Spell();
+        test.archiveSpell(out);
+        out.close();
+        assertEquals(test.getName(), scnr.nextLine());
+        assertEquals(test.getSchool(), scnr.nextLine());
+        scnr.next();
+        assertEquals(test.getLevel(), scnr.nextInt());
+        scnr.next();
+        scnr.next();
+        assertEquals(test.getCastingTime(), scnr.nextInt());
+        scnr.next();
+        assertEquals(test.getRange(), scnr.nextInt());
+        scnr.nextLine();
+        ArrayList<String> testArrayList = new ArrayList<>();
+        String componentLine = scnr.nextLine();
+        System.out.println(componentLine);
+        int j = 0;
+        boolean newStringFlag = false;
+        boolean firstChar = true;
+        boolean materials = false;
+        // for loop to convert the line of components into a valid ArrayList called testArrayList
+        for (int i = 0; i < componentLine.length(); i++) {
+            if (materials) {
+                if (firstChar) {
+                    testArrayList.add(j, "" + componentLine.charAt(i));
+                    firstChar = false;
+                } else {
+                    if (!(componentLine.charAt(i) == ')')) {
+                        testArrayList.set(j, testArrayList.get(j) + componentLine.charAt(i));
+                    } else {
+                        continue;
+                    }
+                }
+            } else {
+                if (firstChar) {
+                    testArrayList.add(j, "" + componentLine.charAt(i));
+                    firstChar = false;
+                    if (componentLine.charAt(i) == 'M') {
+                        materials = true;
+                        firstChar = true;
+                        i += 2;
+                        j++;
+                    }
+                } else {
+                    if (!newStringFlag && componentLine.charAt(i) == ',') {
+                        newStringFlag = true;
+                        j++;
+                        continue;
+                    } else if (newStringFlag && componentLine.charAt(i) == ' ') {
+                        newStringFlag = false;
+                        firstChar = true;
+                    }
+                }
+            }
+        }
+        assertEquals(test.getComponents(), testArrayList);
     }
 }

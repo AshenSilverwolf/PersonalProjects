@@ -1,5 +1,8 @@
+import java.io.FileWriter;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.Scanner;
 
 public class Spell {
     private String name;
@@ -30,8 +33,37 @@ public class Spell {
     }
 
     public Spell() {
-        this("defaultName", "defaultSchool", 0, 0, 0, new ArrayList<>(Arrays.asList("V", "S", "M")),
-                false, false, "defaultDuration", "defaultDescription");
+        this("defaultName", "defaultSchool", 0, 0, 0, new ArrayList<>(Arrays.asList("V", "S", "M", "a white feather")),
+                true, true, "defaultDuration", "defaultDescription");
+    }
+
+    public void archiveSpell(FileWriter writer) throws IOException {
+        writer.write(this.name + "\n");
+        writer.write(this.school + "\n");
+        writer.write("Level: " + this.level + "\n");
+        writer.write("Casting Time: " + this.castingTime + "\n");
+        writer.write("Range: " + this.range + "\n");
+        boolean material = false;
+        for (int i = 0; i < this.components.size(); i++) {
+            if (!material && this.components.get(i).compareTo("M") != 0) {
+                writer.write(this.components.get(i) + ", ");
+            }
+            else if (!material && this.components.get(i).compareTo("M") == 0) {
+                writer.write(this.components.get(i) + " (");
+                material = true;
+            }
+            else if (material) {
+                writer.write(this.components.get(i) + ")");
+            }
+        }
+        writer.write("\n");
+        if (this.ritual)
+            writer.write("Ritual\n");
+        writer.write("Duration: ");
+        if (this.concentration)
+            writer.write("Concentration, ");
+        writer.write(this.duration + "\n");
+        writer.write(this.description + "\n");
     }
 
     public String getName() {

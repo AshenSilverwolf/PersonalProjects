@@ -217,5 +217,6 @@ class SpellTest {
         durationLine = durationLine.substring(1);
         assertEquals(test.getDuration(), durationLine);
         assertEquals(test.getDescription(), scnr.nextLine());
+        assertEquals(test.getHigherLevel(), scnr.nextLine().substring(18));
     }
 }

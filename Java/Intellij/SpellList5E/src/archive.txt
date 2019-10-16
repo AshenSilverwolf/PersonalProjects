@@ -1,9 +1,20 @@
-defaultName
-defaultSchool
-Level: 0
-Casting Time: 0
-Range: 0
-V, S, M (a white feather)
-Ritual
-Duration: Concentration, defaultDuration
-defaultDescription
+Power Word Kill
+Enchantment
+Level: 9
+Casting Time: 6
+Range: 60
+V
+Duration: Instantaneous
+You utter a word of power that can compel one creature you can see within range to die instantly. If the creature you choose has 100 hit points or fewer, it dies. Otherwise, the spell has no effect.
+At Higher Levels: N/A
+
+Fireball
+Evocation
+Level: 3
+Casting Time: 6
+Range: 150
+V, S, M (a tiny ball of bat guano and sulfur)
+Duration: Instantaneous
+A bright streak flashes from your pointing finger to a point you choose within range then blossoms with a low roar into an explosion of flame. Each creature in a 20-foot radius must make a Dexterity saving throw. A target takes 8d6 fire damage on a failed save, or half as much damage on a successful one. The fire spreads around corners. It ignites flammable objects in the area that aren't being worn or carried.
+At Higher Levels: At Higher Levels: When you cast this spell using a spell slot of 4th level or higher, the damage increases by 1d6 for each slot level above 3rd.
+

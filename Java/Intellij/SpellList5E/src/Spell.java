@@ -1,3 +1,4 @@
+import java.io.FileReader;
 import java.io.FileWriter;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -15,10 +16,11 @@ public class Spell {
     private boolean ritual;
     private String duration;
     private String description;
+    private String higherLevel;
 
     public Spell(String name, String school, int level, int castingTime,
                  int range, ArrayList<String> components, boolean concentration,
-                 boolean ritual, String duration, String description) {
+                 boolean ritual, String duration, String description, String higherLevel) {
 
         this.name = name;
         this.school = school;
@@ -30,11 +32,12 @@ public class Spell {
         this.ritual = ritual;
         this.duration = duration;
         this.description = description;
+        this.higherLevel = higherLevel;
     }
 
     public Spell() {
         this("defaultName", "defaultSchool", 0, 0, 0, new ArrayList<>(Arrays.asList("V", "S", "M", "a white feather")),
-                true, true, "defaultDuration", "defaultDescription");
+                true, true, "defaultDuration", "defaultDescription", "N/A");
     }
 
     public void archiveSpell(FileWriter writer) throws IOException {
@@ -46,7 +49,7 @@ public class Spell {
         boolean material = false;
         for (int i = 0; i < this.components.size(); i++) {
             if (!material && this.components.get(i).compareTo("M") != 0) {
-                writer.write(this.components.get(i) + ", ");
+                writer.write(this.components.get(i));
             }
             else if (!material && this.components.get(i).compareTo("M") == 0) {
                 writer.write(this.components.get(i) + " (");
@@ -54,6 +57,10 @@ public class Spell {
             }
             else if (material) {
                 writer.write(this.components.get(i) + ")");
+            }
+
+            if (!material && i < this.components.size() - 1) {
+                writer.write(", ");
             }
         }
         writer.write("\n");
@@ -64,6 +71,8 @@ public class Spell {
             writer.write("Concentration, ");
         writer.write(this.duration + "\n");
         writer.write(this.description + "\n");
+        writer.write("At Higher Levels: " + this.higherLevel + "\n");
+        writer.write("\n");
     }
 
     public String getName() {
@@ -106,6 +115,10 @@ public class Spell {
         return this.description;
     }
 
+    public String getHigherLevel() {
+        return this.higherLevel;
+    }
+
     public void setName(String name) {
         this.name = name;
     }
@@ -144,5 +157,9 @@ public class Spell {
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    public void setHigherLevel(String higherLevel) {
+        this.higherLevel = higherLevel;
     }
 }

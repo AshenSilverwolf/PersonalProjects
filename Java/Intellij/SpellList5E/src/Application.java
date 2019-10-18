@@ -32,4 +32,17 @@ public class Application {
             System.out.println(scnr.nextLine());
         }
     }
+
+    public createSpell(ArrayList<Spell> lexicon) {
+        Scanner scnr = new Scanner(System.in);
+        System.out.print("Please enter a name for your spell: ");
+        String name = scnr.nextLine();
+        System.out.print("Please enter the school of magic your spell is a part of: ");
+        String school = scnr.nextLine();
+        System.out.print("Please enter the level of your spell: ");
+        int level = scnr.nextInt();
+        System.out.print("Please enter the Casting Time of your spell: ");
+        String timeString = scnr.nextLine();
+        // convert the string that is the actual casting time into an integer
+    }
 }

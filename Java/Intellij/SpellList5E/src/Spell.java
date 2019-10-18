@@ -15,12 +15,13 @@ public class Spell {
     private boolean concentration;
     private boolean ritual;
     private String duration;
+    private ArrayList<String> classes;
     private String description;
     private String higherLevel;
 
     public Spell(String name, String school, int level, int castingTime,
                  int range, ArrayList<String> components, boolean concentration,
-                 boolean ritual, String duration, String description, String higherLevel) {
+                 boolean ritual, String duration, ArrayList<String> classes, String description, String higherLevel) {
 
         this.name = name;
         this.school = school;
@@ -31,13 +32,14 @@ public class Spell {
         this.concentration = concentration;
         this.ritual = ritual;
         this.duration = duration;
+        this.classes = classes;
         this.description = description;
         this.higherLevel = higherLevel;
     }
 
     public Spell() {
         this("defaultName", "defaultSchool", 0, 0, 0, new ArrayList<>(Arrays.asList("V", "S", "M", "a white feather")),
-                true, true, "defaultDuration", "defaultDescription", "N/A");
+                true, true, "defaultDuration", new ArrayList<>(Arrays.asList("Wizard")), "defaultDescription", "N/A");
     }
 
     public void archiveSpell(FileWriter writer) throws IOException {
@@ -70,6 +72,14 @@ public class Spell {
         if (this.concentration)
             writer.write("Concentration, ");
         writer.write(this.duration + "\n");
+        writer.write("Classes: ");
+        for (int i = 0; i  < this.classes.size(); i++) {
+            writer.write(this.classes.get(i));
+            if (i != this.classes.size() - 1) {
+                writer.write(", ");
+            }
+        }
+        writer.write("\n");
         writer.write(this.description + "\n");
         writer.write("At Higher Levels: " + this.higherLevel + "\n");
         writer.write("\n");
@@ -109,6 +119,10 @@ public class Spell {
 
     public String getDuration() {
         return this.duration;
+    }
+
+    public ArrayList<String> getClasses() {
+        return this.classes;
     }
 
     public String getDescription() {
@@ -153,6 +167,10 @@ public class Spell {
 
     public void setDuration(String duration) {
         this.duration = duration;
+    }
+
+    public void setClasses(ArrayList<String> classes) {
+        this.classes = classes;
     }
 
     public void setDescription(String description) {

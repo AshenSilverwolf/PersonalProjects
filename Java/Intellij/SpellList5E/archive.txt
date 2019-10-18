@@ -6,6 +6,7 @@ Range: 0
 V, S, M (a white feather)
 Ritual
 Duration: Concentration, defaultDuration
+Classes: Wizard
 defaultDescription
 At Higher Levels: N/A
 

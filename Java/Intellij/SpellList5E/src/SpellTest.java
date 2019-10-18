@@ -150,19 +150,28 @@ class SpellTest {
         Spell test = new Spell();
         test.archiveSpell(out);
         out.close();
+
         assertEquals(test.getName(), scnr.nextLine());
+
         assertEquals(test.getSchool(), scnr.nextLine());
+
         scnr.next();
+
         assertEquals(test.getLevel(), scnr.nextInt());
+
         scnr.next();
         scnr.next();
+
         assertEquals(test.getCastingTime(), scnr.nextInt());
+
         scnr.next();
+
         assertEquals(test.getRange(), scnr.nextInt());
+
         scnr.nextLine();
+
         ArrayList<String> testArrayList = new ArrayList<>();
         String componentLine = scnr.nextLine();
-        System.out.println(componentLine);
         int j = 0;
         boolean newStringFlag = false;
         boolean firstChar = true;
@@ -203,12 +212,14 @@ class SpellTest {
             }
         }
         assertEquals(test.getComponents(), testArrayList);
+
         if (scnr.next().compareTo("Ritual") == 0) {
             assertEquals(true, test.isRitual());
             scnr.next();
         } else {
             assertEquals(false, test.isRitual());
         }
+
         String durationLine = scnr.nextLine();
         if (durationLine.charAt(1) == 'C') {
             assertEquals(true, test.isConcentration());
@@ -216,6 +227,29 @@ class SpellTest {
         }
         durationLine = durationLine.substring(1);
         assertEquals(test.getDuration(), durationLine);
+
+        j = 0;
+        firstChar = true;
+        ArrayList<String> classArrayList = new ArrayList<>();
+        String classLine = scnr.nextLine();
+        classLine = classLine.substring(9);
+        for (int i = 0; i < classLine.length(); i++) {
+            if (firstChar) {
+                classArrayList.add(j, "" + classLine.charAt(i));
+                firstChar = false;
+            } else {
+                if (classLine.charAt(i) == ',') {
+                    j++;
+                    i++;
+                    firstChar = true;
+                    continue;
+                } else {
+                    classArrayList.set(j, classArrayList.get(j) + classLine.charAt(i));
+                }
+            }
+        }
+        assertEquals(test.getClasses(), classArrayList);
+
         assertEquals(test.getDescription(), scnr.nextLine());
         assertEquals(test.getHigherLevel(), scnr.nextLine().substring(18));
     }

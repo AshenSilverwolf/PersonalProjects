@@ -45,7 +45,7 @@ class SpellTest {
     @Test
     void getComponents() {
         Spell test = new Spell();
-        assertEquals(new ArrayList<String>(Arrays.asList("V", "S", "M")), test.getComponents());
+        assertEquals(new ArrayList<String>(Arrays.asList("V", "S", "M", "a white feather")), test.getComponents());
     }
 
     @Test

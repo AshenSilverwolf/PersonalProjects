@@ -33,7 +33,7 @@ public class Application {
         }
     }
 
-    public createSpell(ArrayList<Spell> lexicon) {
+    public void createSpell(ArrayList<Spell> lexicon) {
         Scanner scnr = new Scanner(System.in);
         System.out.print("Please enter a name for your spell: ");
         String name = scnr.nextLine();

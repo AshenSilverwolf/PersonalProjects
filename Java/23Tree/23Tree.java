@@ -17,7 +17,8 @@ class TwoThreeTree {
 
 	void insert(int key) {
 
-
+		TwoThreeNode nearest = searchRecursive(root, key);
+		// PICK UP HERE
 	}
 
 	void split() {
@@ -32,7 +33,26 @@ class TwoThreeTree {
 
 	void search(int key) {
 
+		TwoThreeNode walker = root;
+		TwoThreeNode nearest = searchRecursive(walker, key);
 
+		if (nearest.data1 == key || nearest.data2 == key)
+			System.out.println("Data " + key + " Found.");
+		else
+			System.out.println("Data " + key + " Not Found.");
+	}
+
+	TwoThreeNode searchRecursive(TwoThreeNode node, int key) {
+
+		if (node == null) return null;
+		if (node.data1 == key || node.data2 == key) return node;
+		
+		if (key < node.data1)
+			return searchRecursive(node.left, key);
+		else if (node.data2 != 0 && key > node.data2)
+			return searchRecursive(node.right, key);
+		else
+			return searchRecursive(node.center, key);
 	}
 
 	void printInorder() {
@@ -56,8 +76,9 @@ class TwoThreeTree {
 		printRecursive(node.left);
 		System.out.println(node.data1);
 		printRecursive(node.center);
-		if (data2 > 0)
+		if (node.data2 > 0) {
 			System.out.println(node.data2);
-		printRecursive(node.right);
+			printRecursive(node.right);
+		}
 	}
 }

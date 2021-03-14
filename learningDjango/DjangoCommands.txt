@@ -1,0 +1,16 @@
+$ python3 manage.py startserver
+
+// MIGRATIONS //
+
+$ python3 manage.py makemigrations
+
+- Generates migration files for later use
+- Uses current model fields and current database tables
+- Creates numbered files in appname/migrations/
+
+$ python3 manage.py showmigrations
+
+$ python3 manage.py migrate
+
+- Runs all migrations in the project to the current state
+- Can also run only migrations in a specific app to a specific number
